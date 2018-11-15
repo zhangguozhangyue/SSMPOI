@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.zg.mapper.StudentMapper" >
+  <resultMap id="BaseResultMap" type="cn.zg.model.Student" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="university" property="university" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="INTEGER" />
+    <result column="jvalue" property="jvalue" jdbcType="INTEGER" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sex, university, year, jvalue,is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.zg.model.Student" >
+    insert into student (id,sex , university, 
+      year,jvalue,is_delete)
+    values (#{id,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{university,jdbcType=VARCHAR}, 
+      #{year,jdbcType=INTEGER}, #{jvalue,jdbcType=INTEGER}, #{isdelete,jdbcType=INTEGER}, )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.zg.model.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+     <!--  <if test="id != null" >
+        id,
+      </if> -->
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="university != null" >
+        university,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+      <if test="jvalue != null" >
+        jvalue,
+      </if>
+      <if test="isDelete == null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+     <!--  <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if> -->
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="university != null" >
+        #{university,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="jvalue != null" >
+        #{jvalue,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete == null" >
+       0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.zg.model.Student" >
+    update student
+    <set >
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="university != null" >
+       university = #{university,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="jvalue != null" >
+        jvalue = #{jvalue,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete = null" >
+        is_delete =0,
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.zg.model.Student" >
+    update student
+    set sex = #{sex,jdbcType=VARCHAR},
+      university = #{university,jdbcType=VARCHAR},
+      year = #{year,jdbcType=INTEGER},
+      stock = #{jvalue,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 查询所有产品 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+  	SELECT <include refid="Base_Column_List"/> FROM student	WHERE is_delete=0 
+  	<if test="university!=null and university!='' ">
+  		AND `university` LIKE CONCAT('%', #{university}, '%')
+  	</if>
+  	order by year
+  	<!-- SELECT <include refid="Base_Column_List"/> FROM product WHERE is_delete=0
+  	<if test="name!=null and name!=''">
+  		AND `name` LIKE CONCAT('%', #{name}, '%')
+  	</if>  -->
+  </select>
+  <!-- 数据统计 -->
+   <select id="getYearCount" resultType="cn.zg.model.YearCount">
+  	select year,count(year) count from student group by year order by year desc ;
+  </select>
+  
+  <select id="getUniversityCount" resultType="cn.zg.model.UniversityCount">
+  	 select university,count(university) count from student group by university order by count desc;
+  </select>
+  
+  <select id="getCount" resultType="cn.zg.model.UniversityCount">
+  	 select  university, count(university) count from student group by university order by count desc limit 10;
+  </select>
+  
+  <!-- 批量插入数据 -->
+  <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true">
+	insert into student (sex, university,year, jvalue,is_delete) values
+	<foreach collection="dataList" item="data" index="index" separator=","> 
+	     (#{data.sex,jdbcType=VARCHAR}, #{data.university,jdbcType=VARCHAR},#{data.year,jdbcType=INTEGER}, #{data.jvalue,jdbcType=INTEGER},0)
+	</foreach>
+  </insert>
+  
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
