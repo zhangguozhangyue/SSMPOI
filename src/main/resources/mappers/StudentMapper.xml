@@ -87,7 +87,7 @@
         jvalue = #{jvalue,jdbcType=INTEGER},
       </if>
       <if test="isDelete = null" >
-        is_delete =0,
+        is_delete =#{isDelete,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
