@@ -271,6 +271,15 @@
            
 		</tr>
 	</table>
+	 <table id="dg" title="大学统计表" class="easyui-datagrid" fitColumns="true" pagination="true" rownumbers="true" 
+ 		fit="true" toolbar="#tb" pageSize=25 pageList="[25,50,100,200]" data-options="singleSelect:true,collapsible:true,url:'${ctx}/student/university.do',method:'get'" >
+   <thead>
+   	<tr>
+   		<th data-options="field:'university',width:50">大学</th>
+   		<th data-options="field:'count',width:50">数量</th>
+   	</tr>
+   </thead>
+   </table>
 
 </body>
 </html>
