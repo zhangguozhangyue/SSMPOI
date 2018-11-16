@@ -120,7 +120,7 @@
 </head>
 <body style="margin: 1px">
    <table id="dg" title="学生信息列表" class="easyui-datagrid" fitColumns="true" pagination="true" rownumbers="true" 
- 		fit="true" toolbar="#tb" pageSize=25 pageList="[25,50,100,200]" data-options="singleSelect:true,collapsible:true,url:'${ctx}/student/list.do',method:'get'" >
+ 		fit="true" toolbar="#tb" pageSize="25"" pageList="[25,50,100,200]" data-options="singleSelect:true,collapsible:true,url:'${ctx}/student/list.do',method:'get'" >
    <thead>
    	<tr>
    		<th field="cb" checkbox="true" align="center"></th>
