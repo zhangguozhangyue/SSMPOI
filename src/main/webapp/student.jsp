@@ -22,7 +22,7 @@
  
  function exportStudent(){
 	 var name=encodeURI($("#s_studentName").val());
-	 window.location.href="${ctx}/studnet/excel/export.do?search="+name;
+	 window.location.href="${ctx}/student/excel/export.do?search="+name;
  }
 
  function openUploadFileDialog(){  
