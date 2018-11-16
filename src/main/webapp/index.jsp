@@ -148,7 +148,7 @@
  
  
 <div id="dlg2" class="easyui-dialog" style="width:400px;height:180px;padding:10px 20px" closed="true" buttons="#dlg-buttons2">  
-    <form id="uploadForm" action="${ctx}/product/excel/upload.do" method="post" enctype="multipart/form-data" >  
+    <form id="uploadForm" action="${ctx}/student/excel/upload.do" method="post" enctype="multipart/form-data" >  
         <table>  
             <tr>  
                 <td>上传文件：</td>  
