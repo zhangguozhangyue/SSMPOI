@@ -2,7 +2,7 @@
 
 项目所用技术
 用maven,springmvc,spring,mybatis,poi实现的microsoft格式文件的导入导出及增删改查和echarts可视化。
-开发工具编辑器用的eclipse。数据库用的是mysql5.7，如果安装了8的mysql把里面的驱动包换成8的驱动。
+开发工具编辑器用的eclipse。数据库用的是mysql5.7， **如果安装了8的mysql把里面的驱动包换成8的驱动** 。
 
 
 下载教程
