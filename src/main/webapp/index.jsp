@@ -21,7 +21,7 @@
  }
  
  function exportStudent(){
-	 var name=encodeURI($("#s_studentName").val());
+	 var name=encodeURI($("#s_universityName").val());
 	 window.location.href="${ctx}/student/excel/export.do?search="+name;
  }
 
