@@ -50,15 +50,15 @@ public class PoiService implements IPoiService{
 						//TODO：跳过excel sheet表格头部
 						row=sheet.getRow(j);
 						student=new Student();
-//						String sex=null;
-					/*	
+						String sex=null;
+						
                          if(row.getCell(0)==null) {
                         	 sex=null;
                          }else {
-					   sex=ExcelUtil.manageCell(row.getCell(0), null);}*/
+					   sex=ExcelUtil.manageCell(row.getCell(0), null);}
                          
                         
-						String sex=ExcelUtil.manageCell(row.getCell(0), null);
+//						String sex=ExcelUtil.manageCell(row.getCell(0), null);
 //						String university=ExcelUtil.manageCell(row.getCell(1), null);
 						String university=null;
 						if(row.getCell(1)==null){
