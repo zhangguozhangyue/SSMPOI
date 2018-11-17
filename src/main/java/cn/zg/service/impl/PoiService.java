@@ -51,11 +51,11 @@ public class PoiService implements IPoiService{
 						row=sheet.getRow(j);
 						student=new Student();
 
-						String sex=ExcelUtil.manageCell(row.getCell(1), null);
-						String university=ExcelUtil.manageCell(row.getCell(2), null);
-						Integer year=Integer.valueOf(ExcelUtil.manageCell(row.getCell(3), null));
+						String sex=ExcelUtil.manageCell(row.getCell(0), null);
+						String university=ExcelUtil.manageCell(row.getCell(1), null);
+						Integer year=Integer.valueOf(ExcelUtil.manageCell(row.getCell(2), null));
 						
-						Integer jvalue=Integer.valueOf(ExcelUtil.manageCell(row.getCell(4), null));
+						Integer jvalue=Integer.valueOf(ExcelUtil.manageCell(row.getCell(3), null));
 					
 						
 						student.setSex(sex);
