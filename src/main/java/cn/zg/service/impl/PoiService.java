@@ -50,12 +50,39 @@ public class PoiService implements IPoiService{
 						//TODO：跳过excel sheet表格头部
 						row=sheet.getRow(j);
 						student=new Student();
-
+//						String sex=null;
+					/*	
+                         if(row.getCell(0)==null) {
+                        	 sex=null;
+                         }else {
+					   sex=ExcelUtil.manageCell(row.getCell(0), null);}*/
+                         
+                        
 						String sex=ExcelUtil.manageCell(row.getCell(0), null);
-						String university=ExcelUtil.manageCell(row.getCell(1), null);
-						Integer year=Integer.valueOf(ExcelUtil.manageCell(row.getCell(2), null));
+//						String university=ExcelUtil.manageCell(row.getCell(1), null);
+						String university=null;
+						if(row.getCell(1)==null){
+							university=null;
+						}else {
+							university=ExcelUtil.manageCell(row.getCell(1), null);
+						}
+//						Integer year=Integer.valueOf(ExcelUtil.manageCell(row.getCell(2), null));
+//						Integer jvalue=Integer.valueOf(ExcelUtil.manageCell(row.getCell(3), null));
+                         
+                         Integer year=0;
+						 if(row.getCell(2)==null) {
+							 year=0;
+						 }else {
+							 year=Integer.valueOf(ExcelUtil.manageCell(row.getCell(2), null));
+						 }
 						
-						Integer jvalue=Integer.valueOf(ExcelUtil.manageCell(row.getCell(3), null));
+						Integer jvalue=0;
+						if(row.getCell(3)==null) {
+							jvalue=0;
+							
+						}else {
+						 jvalue=Integer.valueOf(ExcelUtil.manageCell(row.getCell(3), null));
+						}
 					
 						
 						student.setSex(sex);
