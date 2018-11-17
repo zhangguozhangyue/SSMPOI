@@ -104,7 +104,7 @@
   
   <!-- 查询所有产品 -->
   <select id="selectAll" resultMap="BaseResultMap">
-  	SELECT <include refid="Base_Column_List"/> FROM student	WHERE is_delete=0 
+  	SELECT id,sex,year,jvalue FROM student	WHERE is_delete=0 
   	<if test="university!=null and university!='' ">
   		AND `university` LIKE CONCAT('%', #{university}, '%')
   	</if>
