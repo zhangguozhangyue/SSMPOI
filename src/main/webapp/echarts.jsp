@@ -125,7 +125,7 @@
 								dataObj.value = data[i].count;
 								seriesData[i] = dataObj;
 								legendData[i] = data[i].university;
-								selected[legendData[i]] = i < 20;
+								selected[legendData[i]] = i < 10;
 							}
 						}
 					});
