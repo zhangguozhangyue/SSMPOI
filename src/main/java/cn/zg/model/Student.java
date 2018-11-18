@@ -10,11 +10,16 @@ public class Student {
     private String sex;
 
     private String university;
+    
+    private String college;
 
-    private Integer year;
+ 
+
+	private Integer year;
 
     private Integer jvalue;
-
+  
+    
    /* private String remark;*/
 
     /*@JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
@@ -22,6 +27,13 @@ public class Student {
     
     private Integer isDelete;
     
+    public String getCollege() {
+ 		return college;
+ 	}
+
+ 	public void setCollege(String college) {
+ 		this.college = college;
+ 	}
     public Integer getId() {
         return id;
     }

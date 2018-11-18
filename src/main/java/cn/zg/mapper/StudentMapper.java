@@ -8,6 +8,7 @@ import cn.zg.model.Student;
 import cn.zg.model.UniversityCount;
 import cn.zg.model.YearCount;
 
+
 public interface StudentMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -28,4 +29,8 @@ public interface StudentMapper {
    List<YearCount> getYearCount();
     
     List<UniversityCount> getUniversityCount();
+
+	List<Student> selectByExample(@Param("university") String university);
+	
+	String getCity(String university);
 }

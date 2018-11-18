@@ -6,9 +6,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
@@ -29,6 +31,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import cn.zg.enums.StatusCode;
 import cn.zg.enums.WorkBookVersion;
 import cn.zg.mapper.StudentMapper;
+import cn.zg.model.CityCount;
+import cn.zg.model.EUDataGridResult;
 import cn.zg.model.Student;
 import cn.zg.model.UniversityCount;
 import cn.zg.model.YearCount;
@@ -66,12 +70,40 @@ public class StudentController {
 	@Autowired
 	private IStudentService studentService;
 	
+	
+	
+
+	/**
+	 * 分页获取产品列表
+	 * @param name
+	 * @return
+	 */
+	
+		@RequestMapping(value=prefix+"/list",method=RequestMethod.GET)
+		@ResponseBody
+		public EUDataGridResult listpage(String university,Integer page, Integer rows){
+			List<Student> students=new ArrayList<Student>();
+			EUDataGridResult result=null;
+			try {
+				university=StringUtils.isNotEmpty(university)?URLDecoder.decode(university,"UTF-8"):null;
+				log.info(university);
+				result=studentService.getStudentList(university,page, rows);
+				
+			} catch (Exception e) {
+				log.error("获取产品列表发生异常: ",e.fillInStackTrace());
+			}
+			return result;
+		}
+	
+	
+	
+	
 	/**
 	 * 获取产品列表
 	 * @param name
 	 * @return
 	 */
-	@RequestMapping(value=prefix+"/list",method=RequestMethod.GET)
+	@RequestMapping(value=prefix+"/list1",method=RequestMethod.GET)
 	@ResponseBody
 	public List<Student> list(String university){
 		System.out.println(university);
@@ -115,6 +147,41 @@ public class StudentController {
 	
 
 	/**
+	 * 获取各城市人数统计
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value=prefix+"/cityCount",method=RequestMethod.GET)
+	@ResponseBody
+	public  List<CityCount>  getCityCount(){
+		List<CityCount> cityCount = new ArrayList<CityCount>();
+		List<UniversityCount> universityCounts = getUniversityCount();
+		
+		for(int i = 0; i < universityCounts.size(); i++) {
+		    UniversityCount universityCount =  universityCounts.get(i);
+			String university = universityCount.getUniversity();
+			int count = Integer.parseInt(universityCount.getCount());
+			String city = studentMapper.getCity(university);
+			log.info(city + cityCount.size());
+			if(cityCount.contains(city)) {
+				CityCount cityInfo = new CityCount();
+				cityInfo.setCity(city);
+				cityInfo.setCount(cityInfo.getCount() + count);
+				cityCount.add(cityInfo);
+			}else {
+				CityCount cityInfo = new CityCount();
+				cityInfo.setCity(city);
+				cityInfo.setCount(count);
+				cityCount.add(cityInfo);
+			}
+		}
+		return cityCount ;
+	}
+	
+	
+	
+	
+	/**
 	 * 导出excel
 	 * @param response
 	 * @return
@@ -124,8 +191,8 @@ public class StudentController {
 		try {
 			search=StringUtils.isNotEmpty(search)?URLDecoder.decode(search,"UTF-8"):null;
 			List<Student> students=studentMapper.selectAll(search);
-			
-			String[] headers=new String[]{"编号","性别","大学","入学年","J值"};
+			System.out.println(students);
+			String[] headers=new String[]{"编号","性别","大学","学院","入学年","J值"};
 			List<Map<Integer, Object>> dataList=ExcelBeanUtil.manageProductList(students);
 			log.info("excel下载填充数据： {} ",dataList);
 			
@@ -166,6 +233,7 @@ public class StudentController {
 			Workbook wb=poiService.getWorkbook(file,suffix);
 			
 			List<Student> listStudent=poiService.readExcelData(wb);
+			
 			studentService.saveStudent(listStudent);
 			//批量插入-第一种方法
 			/*for(Product p:products){

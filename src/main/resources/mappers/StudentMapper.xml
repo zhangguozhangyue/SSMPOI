@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="university" property="university" jdbcType="VARCHAR" />
+    <result column="college" property="college" jdbcType="VARCHAR" />
     <result column="year" property="year" jdbcType="INTEGER" />
     <result column="jvalue" property="jvalue" jdbcType="INTEGER" />
     <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
@@ -23,9 +24,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.zg.model.Student" >
-    insert into student (id,sex , university, 
+    insert into student (id,sex , university, college,
       year,jvalue,is_delete)
-    values (#{id,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{university,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{university,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR},
       #{year,jdbcType=INTEGER}, #{jvalue,jdbcType=INTEGER}, #{isdelete,jdbcType=INTEGER}, )
   </insert>
   <insert id="insertSelective" parameterType="cn.zg.model.Student" >
@@ -39,6 +40,9 @@
       </if>
       <if test="university != null" >
         university,
+      </if>
+      <if test="college != null" >
+        college,
       </if>
       <if test="year != null" >
         year,
@@ -60,6 +64,9 @@
       <if test="university != null" >
         #{university,jdbcType=VARCHAR},
       </if>
+      <if test="college != null" >
+        #{college,jdbcType=VARCHAR},
+      </if>
       <if test="year != null" >
         #{year,jdbcType=INTEGER},
       </if>
@@ -80,13 +87,16 @@
       <if test="university != null" >
        university = #{university,jdbcType=VARCHAR},
       </if>
+      <if test="college != null" >
+       college = #{college,jdbcType=VARCHAR},
+      </if>
       <if test="year != null" >
         year = #{year,jdbcType=INTEGER},
       </if>
       <if test="jvalue != null" >
         jvalue = #{jvalue,jdbcType=INTEGER},
       </if>
-      <if test="isDelete = null" >
+      <if test="isDelete != null" >
         is_delete =#{isDelete,jdbcType=INTEGER},
       </if>
     </set>
@@ -96,23 +106,33 @@
     update student
     set sex = #{sex,jdbcType=VARCHAR},
       university = #{university,jdbcType=VARCHAR},
+      college = #{college,jdbcType=VARCHAR},
       year = #{year,jdbcType=INTEGER},
-      stock = #{jvalue,jdbcType=INTEGER},
+      javlue = #{jvalue,jdbcType=INTEGER},
       is_delete = #{isDelete,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
   
   <!-- 查询所有产品 -->
-  <select id="selectAll" resultMap="BaseResultMap">
-  	SELECT id,sex,university,year,jvalue FROM student	WHERE is_delete=0 
+  <select id="selectAll" parameterType="String" resultMap="BaseResultMap">
+  	SELECT id,sex,university,college,year,jvalue FROM student	WHERE is_delete=0 
   	<if test="university!=null and university!='' ">
   		AND `university` LIKE CONCAT('%', #{university}, '%')
   	</if>
-  	order by year
+  		order by year
   	<!-- SELECT <include refid="Base_Column_List"/> FROM product WHERE is_delete=0
   	<if test="name!=null and name!=''">
   		AND `name` LIKE CONCAT('%', #{name}, '%')
   	</if>  -->
+  </select>
+  
+  <!-- 分页查询 -->
+  <select id="selectByExample" parameterType="String" resultMap="BaseResultMap">
+  
+  SELECT id,sex,university,college,year,jvalue from student where is_delete=0
+  <if test="university!=null and university!='' ">
+  		AND `university` LIKE CONCAT('%', #{university}, '%')
+  	</if>
   </select>
   <!-- 数据统计 -->
    <select id="getYearCount" resultType="cn.zg.model.YearCount">
@@ -127,11 +147,14 @@
   	 select  university, count(university) count from student group by university order by count desc limit 10;
   </select>
   
+   <select id="getCity" parameterType="String" resultType="String">
+  	  select city from testcollege where university = #{university} 
+  </select>
   <!-- 批量插入数据 -->
   <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true">
-	insert into student (sex, university,year, jvalue,is_delete) values
+	insert into student (sex, university,college,year, jvalue,is_delete) values
 	<foreach collection="dataList" item="data" index="index" separator=","> 
-	     (#{data.sex,jdbcType=VARCHAR}, #{data.university,jdbcType=VARCHAR},#{data.year,jdbcType=INTEGER}, #{data.jvalue,jdbcType=INTEGER},0)
+	     (#{data.sex,jdbcType=VARCHAR}, #{data.university,jdbcType=VARCHAR},#{data.college,jdbcType=VARCHAR},#{data.year,jdbcType=INTEGER}, #{data.jvalue,jdbcType=INTEGER},0)
 	</foreach>
   </insert>
   

@@ -41,16 +41,21 @@ public class PoiService implements IPoiService{
 		List<Student> students=new ArrayList<Student>();
 		Row row=null;
 		int numSheet=wb.getNumberOfSheets();
+		System.out.println("起始时间"+System.currentTimeMillis());
 		if (numSheet>0) {
 			for(int i=0;i<numSheet;i++){
 				Sheet sheet=wb.getSheetAt(i);
 				int numRow=sheet.getLastRowNum();
+				
 				if (numRow>0) {
 					for(int j=1;j<=numRow;j++){
+						
+						
+						
 						//TODO：跳过excel sheet表格头部
 						row=sheet.getRow(j);
 						student=new Student();
-						String sex=null;
+					String sex=null;
 						
                          if(row.getCell(0)==null) {
                         	 sex=null;
@@ -68,34 +73,38 @@ public class PoiService implements IPoiService{
 						}
 //						Integer year=Integer.valueOf(ExcelUtil.manageCell(row.getCell(2), null));
 //						Integer jvalue=Integer.valueOf(ExcelUtil.manageCell(row.getCell(3), null));
-                         
+						String college=null;
+						if(row.getCell(2)==null){
+							college=null;
+						}else {
+							college=ExcelUtil.manageCell(row.getCell(2), null);
+						}
                          Integer year=0;
-						 if(row.getCell(2)==null) {
+						 if(row.getCell(3)==null) {
 							 year=0;
 						 }else {
-							 year=Integer.valueOf(ExcelUtil.manageCell(row.getCell(2), null));
+							 year=Integer.valueOf(ExcelUtil.manageCell(row.getCell(3), null));
 						 }
 						
 						Integer jvalue=0;
-						if(row.getCell(3)==null) {
+						if(row.getCell(4)==null) {
 							jvalue=0;
 							
 						}else {
-						 jvalue=Integer.valueOf(ExcelUtil.manageCell(row.getCell(3), null));
+						 jvalue=Integer.valueOf(ExcelUtil.manageCell(row.getCell(4), null));
 						}
-					
 						
 						student.setSex(sex);
 						student.setUniversity(university);
+						student.setCollege(college);
 						student.setYear(year);
-						student.setJvalue(jvalue);		
-						
-						
+						student.setJvalue(jvalue);								
 						students.add(student);
 					}
 				}
 			}
 		}
+		System.out.println("结束时间"+System.currentTimeMillis());
 		log.info("获取数据列表: {} ",students);
 		return students;
 	}

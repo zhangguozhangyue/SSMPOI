@@ -22,7 +22,7 @@
 
 <!-- 引入 echarts.js -->
 <script src="js/echarts.min.js"></script>
-<a href="index.jsp" class="easyui-linkbutton" iconCls="icon-undo"
+<a href="student.jsp" class="easyui-linkbutton" iconCls="icon-undo"
 	plain="true">返回</a>
 </head>
 

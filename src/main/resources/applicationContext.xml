@@ -46,6 +46,8 @@
 		<property name="mapperLocations" value="classpath:mappers/*.xml"></property>
 		<!-- mybatis配置文件 -->
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+					
+			
 	</bean>
 
 	<!-- DAO接口所在包名，Spring会自动查找其下的类 : Mapper动态代理的开发方式-->

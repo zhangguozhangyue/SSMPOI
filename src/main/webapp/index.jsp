@@ -13,12 +13,6 @@
 <script type="text/javascript" src="${ctx}/jquery-easyui-1.5.5.4/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript">
   
- function searchStudent(){
-	 $("#dg").datagrid('load',
-			 {
-		"university":encodeURI($("#s_universityName").val())
-	 });
- }
  
  function exportStudent(){
 	 var name=encodeURI($("#s_universityName").val());
@@ -80,6 +74,7 @@
      $('#id').textbox('setValue',row.id);
      $('#sex').textbox('setValue',row.sex);
      $('#university').textbox('setValue',row.university);
+     $('#college').textbox('setValue',row.college);
      $('#year').textbox('setValue',row.year);
      $('#jvalue').textbox('setValue',row.jvalue);
 	 return false;
@@ -94,6 +89,7 @@
 	 var id=$('input[name="id"]').val();
      var sex=$('input[name="sex"]').val();
      var university=$('input[name="university"]').val();
+     var college=$('input[name="college"]').val();
      var year=$('input[name="year"]').val();
      var jvalue=$('input[name="jvalue"]').val();
 
@@ -114,19 +110,43 @@
 	    }
 	});
  }
+ 
+ function searchStudent(){
+		 $("#dg").datagrid('load',
+				 {
+			"university":encodeURI($("#s_universityName").val())
+		 }); 
+		/*  var university=$("#s_universityName").val();
+		 $.ajax({
+				type: "POST",
+			    url: '${ctx}/student/list1.do',         
+			    data: university,
+			    success: function (data) {
+			        alert(data.msg);
+			        if(data.code==0){
+				        $('#dlg').dialog('close');
+			            $('#dg').datagrid('reload');
+						location.reload(true);
+			        }
+			    }
+			}); */
+ 
+	 }
+	 
 
 </script>
 <title>信息统计分析系统</title>
 </head>
 <body style="margin: 1px">
-   <table id="dg" title="学生信息列表" class="easyui-datagrid" fitColumns="true" pagination="true" rownumbers="true" 
- 		fit="true" toolbar="#tb" pageSize="25"" pageList="[25,50,100,200]" data-options="singleSelect:true,collapsible:true,url:'${ctx}/student/list.do',method:'get'" >
+      <table id="dg" title="学生信息列表" class="easyui-datagrid" fitColumns="true" 
+ 		fit="true" toolbar="#tb"  pageList="[20,30]" data-options="singleSelect:true, pagination:true ,collapsible:true,url:'${ctx}/student/list.do',method:'get',pageSize:20" >
    <thead>
    	<tr>
    		<th field="cb" checkbox="true" align="center"></th>
    		<th data-options="field:'id',width:50" id=>编号</th>
    		<th data-options="field:'sex',width:50">性别</th>
    		<th data-options="field:'university',width:50">大学</th>
+   		<th data-options="field:'college',width:50">学院</th>
    		<th data-options="field:'year',width:50">入学年</th>
    		<th data-options="field:'jvalue',width:50">J值</th>
    	</tr>
@@ -142,6 +162,7 @@
  		<a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newStudent()">新增</a>
  		<a href="javascript:updateStudent()" class="easyui-linkbutton" iconCls="icon-save" plain="true">修改</a>
  		<a href="echarts.jsp" class="easyui-linkbutton" iconCls="icon-large-chart" plain="true">数据统计</a>
+ 		<a href="echarts2.jsp" class="easyui-linkbutton" iconCls="icon-large-chart" plain="true">数据统计2</a>
  	</div>
  </div>
  
@@ -172,6 +193,9 @@
             </div>
             <div style="margin-bottom:10px">
                 <input id="university" name="university" class="easyui-textbox" required="true" label="大学:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input id="college" name="college" class="easyui-textbox" required="true" label="大学:" style="width:100%">
             </div>
             <div style="margin-bottom:10px">
                 <input id="year" name="year" class="easyui-textbox" type="number"  required="true" validType="number" label="入学年:" style="width:100%">

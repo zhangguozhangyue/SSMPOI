@@ -31,8 +31,9 @@ public class ExcelBeanUtil {
 				dataMap.put(0, bean.getId());
 				dataMap.put(1, bean.getSex());
 				dataMap.put(2, bean.getUniversity());
-				dataMap.put(3, bean.getYear());
-				dataMap.put(4, bean.getJvalue());
+				dataMap.put(2, bean.getCollege());
+				dataMap.put(4, bean.getYear());
+				dataMap.put(5, bean.getJvalue());
 				dataList.add(dataMap);
 			}
 		}

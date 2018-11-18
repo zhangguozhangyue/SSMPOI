@@ -9,8 +9,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import cn.zg.enums.StatusCode;
 import cn.zg.mapper.StudentMapper;
+import cn.zg.model.EUDataGridResult;
 import cn.zg.model.Student;
 import cn.zg.request.StudentRequest;
 import cn.zg.response.BaseResponse;
@@ -24,6 +28,26 @@ public class StudentService implements IStudentService{
 	
 	@Autowired
 	private StudentMapper studentMapper;
+	
+	
+	
+	 public EUDataGridResult getStudentList(String university,int page, int rows) {
+	        //查询商品列表
+	        Student example = new Student();
+	        //分页处理
+	        PageHelper.startPage(page, rows);
+	        List<Student> list = studentMapper.selectByExample(university);
+//	        log.info(list.toString());
+	        //创建一个返回值对象
+	        EUDataGridResult result = new EUDataGridResult();
+	        result.setRows(list);
+	        //取记录总条数
+	        PageInfo<Student> pageInfo = new PageInfo<>(list);
+	        result.setTotal(pageInfo.getTotal());
+	        return result;
+	    }
+
+	
 	
 	public void saveStudent(List<Student> listStudent){
 		if (listStudent!=null) {

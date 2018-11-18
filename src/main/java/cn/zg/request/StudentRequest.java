@@ -14,8 +14,18 @@ public class StudentRequest implements Serializable{
     private String sex;
 
     private String university;
+    
+    private String college;
 
-    private Integer year;
+    public String getCollege() {
+		return college;
+	}
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+	private Integer year;
 
     private Integer jvalue;
 
