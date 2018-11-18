@@ -105,7 +105,7 @@
 				</script>
 			</td>
 		<td>
-				<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+				<!-- ECharts准备一个具备大小（宽高）的Dom -->
 				<div id="main" style="width: 1500px; height: 893px;"></div> <script
 					type="text/javascript">
 				var myChart = echarts
