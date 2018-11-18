@@ -57,7 +57,7 @@ public class PoiController {
 	private String excelStudentName;
 	
 	/**
-	 * 获取产品列表-可用于搜索
+	 * 获取产品列表可用于搜索
 	 * @param name
 	 * @return
 	 */
