@@ -22,7 +22,7 @@
 		<mybatis.paginator.version>1.2.15</mybatis.paginator.version>
 		<mybatis.spring.version>1.2.2</mybatis.spring.version>
 		<mybatis.version>3.3.1</mybatis.version>    
-		<mysql.version>5.1.43</mysql.version>
+		<mysql.version>8.0.28</mysql.version>
 		<pagehelper.version>4.1.1</pagehelper.version>
 		<poi.version>3.17</poi.version>
 		<slf4j.version>1.7.7</slf4j.version>    
